@@ -3,39 +3,43 @@
 
 #include "stdafx.h"
 #include "buildingsSimplify.h"
-//#include "height.h"
-//#include "readGrid.h"
 #include "TriMesh.h"
-//#include "readVector.h"
+
 
 
 
 int main()
 {
-	//buildingSim();
-	//ToOBJ();
-	//edeg();
-	//int xl = (816048-792983)/5;
-	//int yl = (3366156-3339671)/5;
-	//cout<<xl<<" "<<yl<<" "<<xl*yl<<endl;
-	//	readHeight("G:\\xx3Dmap\\heights\\demo.b");
-	//readHeight();
-	//readGrid("G:\\xx3Dmap\\heights\\index.txt",gridR);
-	//cout<<gridR[0].p[1][3744]<<endl;
+	string heightPath("F:\\ligenProject\\xx3Dmap\\heights\\index.txt");
+	vector<GridHeight> heightR;
+	vector<IplImage*>cannyImage;
+	vector<int> rowNum,colNum;
+	vector<double> stdLen;
+	vector<double> xmin;
+	vector<double> ymax;
+	Horizon(heightPath,heightR,cannyImage,rowNum,colNum,stdLen,xmin,ymax);
 
-	//ToTriMesh(poly,TriMesh);
-	//ToOBJ();
-	//ToTriMeshEar(poly,TriMesh);
-	//ToTriMeshEar();
-	//ToTriMesh();
-	//juhe();
-	//readVector();
-	//ToOBJ();
-	Horizon();
-	cout<<endl;
-	cout<<"OK"<<endl;
+	//针对每个图形 输入生成图形的范围，以及保存文件的路径
+	for(int i=0;i<heightR.size();i++)
+	{
+		int rowCenter,colCenter,halfRow,halfCol;
+		printf("本张图的范围是 行%d 列%d\n xmin：%f  ymax:%f \n 请输入中心点的行，列，半行长，半列长\n",rowNum[i],colNum[i],xmin[i],ymax[i]);
+		scanf("%d %d %d %d",&rowCenter,&colCenter,&halfRow,&halfCol);
+
+		int area[4]={rowCenter,colCenter,halfRow,halfCol};
+
+		char tmpPath[120];
+		printf("请输入文件路径\n");
+		scanf("%s",tmpPath);
+		string objPath(tmpPath);
+		modelToObj(objPath,cannyImage[i],heightR[i],rowNum[i],colNum[i],xmin[i],ymax[i],stdLen[i],area);
+		
+	}
+
+
+	cout<<"All is OK"<<endl;
 	getchar();
-	vector<int> aa;
+	
 
 	return 0;
 } 

@@ -934,27 +934,25 @@ void GetNormalMatrix(vector<vector<double> >& normals,vector<vector<int> > &heig
 
 
 /************************************************************************/
-/*                                                                      */
+/*     读文件 返回图片和图像大小                                        */
 /************************************************************************/
 
-void Horizon()
+void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&cannyImg,vector<int>&rowNum,vector<int> &colNum,vector<double>&stdLen,vector<double> &xmin,vector<double>&ymax)
 {	 
 	//Pot tp = get_Normal(Pot(0,0,0),Pot(1,0,0),Pot(0,1,0));
 	//cout<<tp.x<<" "<<tp.y<<" "<<tp.z<<endl;	
-	vector<GridHeight> heightR;/***height数据vector数组***/
-	vector<int> rowNum,colNum;
-	vector<double> stdLen;
-	vector<double> xmin;
-	vector<double> ymax;
-	string heightPath("F:\\ligenProject\\xx3Dmap\\heights\\index.txt");
+	//vector<GridHeight> heightR;/***height数据vector数组***/
+	//vector<int> rowNum,colNum;
+	//vector<double> stdLen;
+	//vector<double> xmin;
+	//vector<double> ymax;
+	
 
 	//入参：heightPath
 	//出参：heightR,rowNum,colNum,stdLen,xmin,ymax 高度数据 行数 列数 格与格之间的距离,左上角顶点的坐标。
-	readHeightGrid(heightPath,heightR,rowNum,colNum,stdLen,xmin,ymax);
+	readHeightGrid(filePath,heightR,rowNum,colNum,stdLen,xmin,ymax);
 
 	cout<<"读文件完毕"<<endl;
-
-
 
 	//针对每个文件（每张地图）的每个点求法向量
 	for(int i=0;i<heightR.size();i++)
@@ -967,7 +965,6 @@ void Horizon()
 			{
 				int value=abs(255*heightR[i].p[m][n]/256);
 				if(value>255)value=255;
-				//
 				value=(255-value);
 				cvSetReal2D(initImage,m,n,value);
 			}
@@ -980,54 +977,17 @@ void Horizon()
 		GetNormalMatrix(normalMatrix,heightR[i].p,rowNum[i],colNum[i],stdLen[i],xmin[i], ymax[i]);
 		cout<<"取向量完毕"<<endl;
 		IplImage *tmpTest=arrayToImage(normalMatrix,rowNum[i],colNum[i]);
-		cout<<"Horizon完毕"<<endl;
-
-		//canny算法
-		IplImage* cannyImg = cvCreateImage(cvGetSize(tmpTest),IPL_DEPTH_8U,1);  
-		cvCanny(tmpTest, cannyImg, 20, 300, 3);  
-		cvShowImage("cannyImage", cannyImg);
-		cvWaitKey();
-
-		//提取特征点
-		vector<vector<int> > cannyPoint;
-		int nv=0;
-		cannyPoint.resize(rowNum[i],vector<int>(colNum[i]));
-		imageToArray(cannyPoint,cannyImg,rowNum[i],colNum[i],nv);
-
-		cout<<"提取特征点完毕"<<endl;
-
-		MESH meshCTX;
-		MESH_PTR pMesh=&meshCTX;
-		InitMesh(pMesh, nv);
-		int amount=3;
-		for(int n=0;n<colNum[i];n++)
-		{
-			for(int m=rowNum[i]-1;m>=0;m--)
-			{
-				if(cannyPoint[m][n]!=0)
-				{
-					double x=xmin[i]+n*stdLen[i];
-					double y=ymax[i]-m*stdLen[i];
-					double z=heightR[i].p[m][n];
-					((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
-					((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
-					((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
-					amount++;
-				}
-			}
-		}
-
-		cout<<"共有"<<nv<<"特征点"<<"  amount:"<<amount<<endl;
-
-		double last_time, this_time;
-		last_time = GetTickCount();
-		IncrementalDelaunay(pMesh);
-		this_time = GetTickCount();
-		cout<<"耗时"<<this_time - last_time<<"ms"<<endl;
-		FILE *f = fopen("D:\\obj2.obj", "wt");
-		WriteOBJ(f,pMesh);
-		fclose(f);
-		cvWaitKey();
+		
+		//canny算法 生成特征点
+		IplImage* cannyTmp = cvCreateImage(cvGetSize(tmpTest),IPL_DEPTH_8U,1);  
+		cvCanny(tmpTest, cannyTmp, 20, 300, 3);  
+		cvShowImage("cannyImage所有", cannyTmp);
+		
+		
+		cannyImg.push_back(cannyTmp);
+		
+		//分别对切分的图片 提取特征点
+		
 		//vector<Vector2<float> > points;
 		//map<pair<float,float>,int> axisToID;
 		//map<int,int> idToHeight;
@@ -1062,5 +1022,67 @@ void Horizon()
 		////cvReleaseImage(&tmpTest);
 		////cvReleaseImage(&cannyImg);
 	}
+	cout<<"提取特征点完毕"<<endl;
+}
 
+void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,int col,double xmin,double ymax,double stdLen,int area[4])
+{
+	vector<vector<int> > cannyPoint;
+	int nv=0;
+	cannyPoint.resize(row,vector<int>(col));
+	imageToArray(cannyPoint,cannyImg,row,col,nv);
+
+	MESH meshCTX;
+	MESH_PTR pMesh=&meshCTX;
+	
+	int amount=3;
+
+	int startRow=area[0]-area[2],endRow=area[0]+area[2],startCol=area[1]-area[3],endCol=area[1]+area[3];
+	if(startRow<0)startRow=0;
+	if(endRow>=row)endRow=row-1;
+	if(startCol<0)startCol=0;
+	if(endCol>=col)endCol=col-1;
+
+	int totalVer=0;//统计该区域的特征点数量
+	for(int n=startCol;n<=endCol;n++)
+	{
+		for(int m=endRow;m>=startRow;m--)
+		{
+			if(cannyPoint[m][n]!=0)
+			{
+				totalVer++;
+			}
+		}
+	}
+
+	InitMesh(pMesh, totalVer);
+
+	for(int n=startCol;n<=endCol;n++)
+	{
+		for(int m=endRow;m>=startRow;m--)
+		{
+			if(cannyPoint[m][n]!=0)
+			{
+				double x=xmin+n*stdLen;
+				double y=ymax-m*stdLen;
+				double z=heightR.p[m][n];
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+				amount++;
+			}
+		}
+	}
+
+	cout<<"整张地图共有"<<nv<<"特征点"<<"本区域提取  amount:"<<totalVer<<endl;
+
+	double last_time, this_time;
+	last_time = GetTickCount();
+	IncrementalDelaunay(pMesh);
+	this_time = GetTickCount();
+	cout<<"耗时"<<this_time - last_time<<"ms"<<endl;
+	FILE *f = fopen(objPath.c_str(), "wt");
+	WriteOBJ(f,pMesh);
+	fclose(f);
+	cvWaitKey();
 }
