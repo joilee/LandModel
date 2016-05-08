@@ -1,4 +1,4 @@
-// LandModel.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+ï»¿// LandModel.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -19,17 +19,17 @@ int main()
 	vector<double> ymax;
 	Horizon(heightPath,heightR,cannyImage,rowNum,colNum,stdLen,xmin,ymax);
 
-	//Õë¶ÔÃ¿¸öÍ¼ĞÎ ÊäÈëÉú³ÉÍ¼ĞÎµÄ·¶Î§£¬ÒÔ¼°±£´æÎÄ¼şµÄÂ·¾¶
+	//é’ˆå¯¹æ¯ä¸ªå›¾å½¢ è¾“å…¥ç”Ÿæˆå›¾å½¢çš„èŒƒå›´ï¼Œä»¥åŠä¿å­˜æ–‡ä»¶çš„è·¯å¾„
 	for(int i=0;i<heightR.size();i++)
 	{
 		int rowCenter,colCenter,halfRow,halfCol;
-		printf("±¾ÕÅÍ¼µÄ·¶Î§ÊÇ ĞĞ%d ÁĞ%d\n xmin£º%f  ymax:%f \n ÇëÊäÈëÖĞĞÄµãµÄĞĞ£¬ÁĞ£¬°ëĞĞ³¤£¬°ëÁĞ³¤\n",rowNum[i],colNum[i],xmin[i],ymax[i]);
+		printf("æœ¬å¼ å›¾çš„èŒƒå›´æ˜¯ è¡Œ%d åˆ—%d\n xminï¼š%f  ymax:%f \n è¯·è¾“å…¥ä¸­å¿ƒç‚¹çš„è¡Œï¼Œåˆ—ï¼ŒåŠè¡Œé•¿ï¼ŒåŠåˆ—é•¿\n",rowNum[i],colNum[i],xmin[i],ymax[i]);
 		scanf("%d %d %d %d",&rowCenter,&colCenter,&halfRow,&halfCol);
 
 		int area[4]={rowCenter,colCenter,halfRow,halfCol};
 
 		char tmpPath[120];
-		printf("ÇëÊäÈëÎÄ¼şÂ·¾¶\n");
+		printf("è¯·è¾“å…¥æ–‡ä»¶è·¯å¾„\n");
 		scanf("%s",tmpPath);
 		string objPath(tmpPath);
 		modelToObj(objPath,cannyImage[i],heightR[i],rowNum[i],colNum[i],xmin[i],ymax[i],stdLen[i],area);

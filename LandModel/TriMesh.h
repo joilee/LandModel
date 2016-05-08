@@ -1,4 +1,4 @@
-//#include "point.h"
+ï»¿//#include "point.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -44,7 +44,7 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 	//poly.push_back(Pot(10,10,4));
 	//poly.push_back(Pot(10,0,5));
 	/**************************************************
-	______________ÅĞ¶ÏÃ¿¸ö½ÚµãµÄ°¼Í¹ĞÔ_________________
+	______________åˆ¤æ–­æ¯ä¸ªèŠ‚ç‚¹çš„å‡¹å‡¸æ€§_________________
 	**************************************************/
 //	int spec0num=0;
 //	int sepc1num=0;
@@ -315,7 +315,7 @@ void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 
 	
 	/**************************************************
-	__________________²åÈë¶¥µã_________________________
+	__________________æ’å…¥é¡¶ç‚¹_________________________
 	**************************************************/
 
 	/*poly.push_back(Pot(0,0,1));
@@ -330,7 +330,7 @@ void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 
 
 	/**************************************************
-	______________ÅĞ¶ÏÃ¿¸ö½ÚµãµÄ°¼Í¹ĞÔ_________________
+	______________åˆ¤æ–­æ¯ä¸ªèŠ‚ç‚¹çš„å‡¹å‡¸æ€§_________________
 	**************************************************/
 
 	endit = poly.end();
@@ -559,7 +559,7 @@ void ToOBJ()
 {
 
 
-	vector<GridAll> heightR;/***heightÊı¾İvectorÊı×é***/
+	vector<GridAll> heightR;/***heightæ•°æ®vectoræ•°ç»„***/
 	readGrid("G:\\xx3Dmap\\heights\\index.txt",heightR);
 
 
@@ -737,19 +737,19 @@ Pot get_Normal(Pot p1,Pot p2,Pot p3)
 //double VecNor[1000][1000]={0.0};
 
 /************************************************************************/
-/* ¸ù¾İµã·Ö²¼µÄ¾ÅÖÖÇé¿ö½øĞĞ´¦Àí
+/* æ ¹æ®ç‚¹åˆ†å¸ƒçš„ä¹ç§æƒ…å†µè¿›è¡Œå¤„ç†
 
-Èë²Î£ºrow,col,i,j,×óÉÏ½Ç×ø±êxmin,ymax
-³ö²Î£ºvector<Pot> adjPoints
+å…¥å‚ï¼šrow,col,i,j,å·¦ä¸Šè§’åæ ‡xmin,ymax
+å‡ºå‚ï¼švector<Pot> adjPoints
 */
 /************************************************************************/
 void getAdjPoint(vector<Pot> &adjPoints,vector<vector<int> >&heights, int row,int col,double stdlen,int i,int j,double xmin,double ymax)
 {
 	double tmpX=xmin+j*stdlen;
 	double tmpY=ymax-i*stdlen;
-	//Ë³Ê±ÕëÌí¼Óµã
-	//·ÖÎª9ÖÖÇé¿öÌÖÂÛ
-	if(i==0&&j==0)//case1: Èç¹û×óÉÏ½Çµã²»´æÔÚ
+	//é¡ºæ—¶é’ˆæ·»åŠ ç‚¹
+	//åˆ†ä¸º9ç§æƒ…å†µè®¨è®º
+	if(i==0&&j==0)//case1: å¦‚æœå·¦ä¸Šè§’ç‚¹ä¸å­˜åœ¨
 	{
 		Pot P1=Pot(tmpX+stdlen,tmpY,heights[i][j+1]);
 		Pot P2=Pot(tmpX+stdlen,tmpY-stdlen,heights[i+1][j+1]);
@@ -791,7 +791,7 @@ void getAdjPoint(vector<Pot> &adjPoints,vector<vector<int> >&heights, int row,in
 		adjPoints.push_back(P4);
 		adjPoints.push_back(P5);
 	}else if (0<i&&i<row-1&&0<j&&j<col-1)//case5
-	{ //´Ó¸ÃµãµÄÉÏÃæÒ»¸öµã¼ÆËã
+	{ //ä»è¯¥ç‚¹çš„ä¸Šé¢ä¸€ä¸ªç‚¹è®¡ç®—
 		Pot P1=Pot(tmpX,tmpY+stdlen,heights[i-1][j]);
 		Pot P2=Pot(tmpX+stdlen,tmpY+stdlen,heights[i-1][j+1]);
 		Pot P3=Pot(tmpX+stdlen,tmpY,heights[i][j+1]);
@@ -853,9 +853,9 @@ void getAdjPoint(vector<Pot> &adjPoints,vector<vector<int> >&heights, int row,in
 }
 
 /************************************************************************/
-/* µÃµ½Ò»¸öµãµÄ·¨ÏòÁ¿   
-   Èë²Î Ô­Ê¼µã  ÖÜÎ§µãµÄvector
-   ·µ»Ø²ÎÊı PotĞÎÊ½µÄ·¨ÏòÁ¿
+/* å¾—åˆ°ä¸€ä¸ªç‚¹çš„æ³•å‘é‡   
+   å…¥å‚ åŸå§‹ç‚¹  å‘¨å›´ç‚¹çš„vector
+   è¿”å›å‚æ•° Potå½¢å¼çš„æ³•å‘é‡
 */
 /************************************************************************/
 Pot GetNormalPoint(Pot src,vector<Pot> adjPoint )
@@ -898,11 +898,11 @@ Pot GetNormalPoint(Pot src,vector<Pot> adjPoint )
 
 
 /************************************************************************/
-/* »ñÈ¡Õ¤¸ñÖĞÃ¿¸öµãµÄ·¨ÏòÁ¿µÄË®Æ½·ÖÁ¿ ,Çó³ö¾Å¹¬¸ñ¹¹³É8¸öÈı½ÇÃæÆ½¾ùµÄ·¨ÏòÁ¿µÄ¦È½Ç
-   Èë²Î: heights,row col,stdlen,ÒÔ¼°×óÉÏ½Ç¶¥µã×ø±ê£¬ÏòÏÂ¼õĞ¡y£¬ÏòÓÒÔö¼Óx
-   ³ö²Î: normals(¦È½ÇµÄĞÎÊ½)
+/* è·å–æ …æ ¼ä¸­æ¯ä¸ªç‚¹çš„æ³•å‘é‡çš„æ°´å¹³åˆ†é‡ ,æ±‚å‡ºä¹å®«æ ¼æ„æˆ8ä¸ªä¸‰è§’é¢å¹³å‡çš„æ³•å‘é‡çš„Î¸è§’
+   å…¥å‚: heights,row col,stdlen,ä»¥åŠå·¦ä¸Šè§’é¡¶ç‚¹åæ ‡ï¼Œå‘ä¸‹å‡å°yï¼Œå‘å³å¢åŠ x
+   å‡ºå‚: normals(Î¸è§’çš„å½¢å¼)
 
-   ±¸×¢£ºµØÍ¼Ò»¶¨ÊÇÒª´óÓÚ3*3µÄ£¬²»È»»á³öÎÊÌâ¡£
+   å¤‡æ³¨ï¼šåœ°å›¾ä¸€å®šæ˜¯è¦å¤§äº3*3çš„ï¼Œä¸ç„¶ä¼šå‡ºé—®é¢˜ã€‚
    added by lg
 */
 /************************************************************************/
@@ -917,44 +917,44 @@ void GetNormalMatrix(vector<vector<double> >& normals,vector<vector<int> > &heig
 			 double tmpX=xmin+j*stdlen;
 			 double tmpY=ymax-i*stdlen;
 			 double tmpZ=heights[i][j];
-			 Pot source=Pot(tmpX,tmpY,tmpZ);//¸ÃµãµÄÈıÎ¬×ø±ê
+			 Pot source=Pot(tmpX,tmpY,tmpZ);//è¯¥ç‚¹çš„ä¸‰ç»´åæ ‡
 			 vector<Pot> adjPoints;
-			 getAdjPoint(adjPoints,heights, row,col,stdlen, i, j,xmin, ymax);//»ñµÃÁÚ½Óµã
-			 Pot normalPoint= GetNormalPoint(source, adjPoints );//ÇóµÃ¸ÃµãµÄ·¨ÏòÁ¿
-			 double theta=acos(normalPoint.z/normalPoint.getLength());//»ñµÃthetaÖµ
+			 getAdjPoint(adjPoints,heights, row,col,stdlen, i, j,xmin, ymax);//è·å¾—é‚»æ¥ç‚¹
+			 Pot normalPoint= GetNormalPoint(source, adjPoints );//æ±‚å¾—è¯¥ç‚¹çš„æ³•å‘é‡
+			 double theta=acos(normalPoint.z/normalPoint.getLength());//è·å¾—thetaå€¼
 			 normals[i][j]=theta;
 			 
 		}
 		if(i==200||i==400||i==1000||i==2000||i==3000||i==4000)
 		{
-		cout<<"´¦Àíµ½µÚ"<<i<<"ĞĞ"<<endl;
+		cout<<"å¤„ç†åˆ°ç¬¬"<<i<<"è¡Œ"<<endl;
 		}
 	}
 }
 
 
 /************************************************************************/
-/*     ¶ÁÎÄ¼ş ·µ»ØÍ¼Æ¬ºÍÍ¼Ïñ´óĞ¡                                        */
+/*     è¯»æ–‡ä»¶ è¿”å›å›¾ç‰‡å’Œå›¾åƒå¤§å°                                        */
 /************************************************************************/
 
 void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&cannyImg,vector<int>&rowNum,vector<int> &colNum,vector<double>&stdLen,vector<double> &xmin,vector<double>&ymax)
 {	 
 	//Pot tp = get_Normal(Pot(0,0,0),Pot(1,0,0),Pot(0,1,0));
 	//cout<<tp.x<<" "<<tp.y<<" "<<tp.z<<endl;	
-	//vector<GridHeight> heightR;/***heightÊı¾İvectorÊı×é***/
+	//vector<GridHeight> heightR;/***heightæ•°æ®vectoræ•°ç»„***/
 	//vector<int> rowNum,colNum;
 	//vector<double> stdLen;
 	//vector<double> xmin;
 	//vector<double> ymax;
 	
 
-	//Èë²Î£ºheightPath
-	//³ö²Î£ºheightR,rowNum,colNum,stdLen,xmin,ymax ¸ß¶ÈÊı¾İ ĞĞÊı ÁĞÊı ¸ñÓë¸ñÖ®¼äµÄ¾àÀë,×óÉÏ½Ç¶¥µãµÄ×ø±ê¡£
+	//å…¥å‚ï¼šheightPath
+	//å‡ºå‚ï¼šheightR,rowNum,colNum,stdLen,xmin,ymax é«˜åº¦æ•°æ® è¡Œæ•° åˆ—æ•° æ ¼ä¸æ ¼ä¹‹é—´çš„è·ç¦»,å·¦ä¸Šè§’é¡¶ç‚¹çš„åæ ‡ã€‚
 	readHeightGrid(filePath,heightR,rowNum,colNum,stdLen,xmin,ymax);
 
-	cout<<"¶ÁÎÄ¼şÍê±Ï"<<endl;
+	cout<<"è¯»æ–‡ä»¶å®Œæ¯•"<<endl;
 
-	//Õë¶ÔÃ¿¸öÎÄ¼ş£¨Ã¿ÕÅµØÍ¼£©µÄÃ¿¸öµãÇó·¨ÏòÁ¿
+	//é’ˆå¯¹æ¯ä¸ªæ–‡ä»¶ï¼ˆæ¯å¼ åœ°å›¾ï¼‰çš„æ¯ä¸ªç‚¹æ±‚æ³•å‘é‡
 	for(int i=0;i<heightR.size();i++)
 	{
 		CvSize sizeImage=CvSize(colNum[i],rowNum[i]);
@@ -975,18 +975,18 @@ void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&canny
 		vector<vector<double> >normalMatrix;
 		normalMatrix.resize(rowNum[i],vector<double>(colNum[i]));
 		GetNormalMatrix(normalMatrix,heightR[i].p,rowNum[i],colNum[i],stdLen[i],xmin[i], ymax[i]);
-		cout<<"È¡ÏòÁ¿Íê±Ï"<<endl;
+		cout<<"å–å‘é‡å®Œæ¯•"<<endl;
 		IplImage *tmpTest=arrayToImage(normalMatrix,rowNum[i],colNum[i]);
 		
-		//cannyËã·¨ Éú³ÉÌØÕ÷µã
+		//cannyç®—æ³• ç”Ÿæˆç‰¹å¾ç‚¹
 		IplImage* cannyTmp = cvCreateImage(cvGetSize(tmpTest),IPL_DEPTH_8U,1);  
 		cvCanny(tmpTest, cannyTmp, 20, 300, 3);  
-		cvShowImage("cannyImageËùÓĞ", cannyTmp);
+		cvShowImage("cannyImageæ‰€æœ‰", cannyTmp);
 		
 		
 		cannyImg.push_back(cannyTmp);
 		
-		//·Ö±ğ¶ÔÇĞ·ÖµÄÍ¼Æ¬ ÌáÈ¡ÌØÕ÷µã
+		//åˆ†åˆ«å¯¹åˆ‡åˆ†çš„å›¾ç‰‡ æå–ç‰¹å¾ç‚¹
 		
 		//vector<Vector2<float> > points;
 		//map<pair<float,float>,int> axisToID;
@@ -1009,7 +1009,7 @@ void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&canny
 		//		}
 		//	}
 		//}
-		//cout<<"¹²ÓĞ"<<points.size()<<"ÌØÕ÷µã"<<endl;
+		//cout<<"å…±æœ‰"<<points.size()<<"ç‰¹å¾ç‚¹"<<endl;
 
 		//Delaunay triangulation;
 		//std::vector<Triangle> triangles = triangulation.triangulate(points);
@@ -1022,7 +1022,7 @@ void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&canny
 		////cvReleaseImage(&tmpTest);
 		////cvReleaseImage(&cannyImg);
 	}
-	cout<<"ÌáÈ¡ÌØÕ÷µãÍê±Ï"<<endl;
+	cout<<"æå–ç‰¹å¾ç‚¹å®Œæ¯•"<<endl;
 }
 
 void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,int col,double xmin,double ymax,double stdLen,int area[4])
@@ -1034,16 +1034,15 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 
 	MESH meshCTX;
 	MESH_PTR pMesh=&meshCTX;
-	
-	int amount=3;
 
+	//ä¸­å¿ƒç‚¹çš„è¡Œ å‡å» è¡ŒåŠå¾„
 	int startRow=area[0]-area[2],endRow=area[0]+area[2],startCol=area[1]-area[3],endCol=area[1]+area[3];
 	if(startRow<0)startRow=0;
 	if(endRow>=row)endRow=row-1;
 	if(startCol<0)startCol=0;
 	if(endCol>=col)endCol=col-1;
 
-	int totalVer=0;//Í³¼Æ¸ÃÇøÓòµÄÌØÕ÷µãÊıÁ¿
+	int totalVer=0;//ç»Ÿè®¡è¯¥åŒºåŸŸçš„ç‰¹å¾ç‚¹æ•°é‡
 	for(int n=startCol;n<=endCol;n++)
 	{
 		for(int m=endRow;m>=startRow;m--)
@@ -1055,8 +1054,39 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 		}
 	}
 
-	InitMesh(pMesh, totalVer);
 
+	int steps=10;
+	int stepRow=(endRow-startRow)/steps;
+	int stepCol=(endCol-startCol)/steps;
+
+	//
+	for(int i=0;i<=steps;i++)
+	{
+		if(cannyPoint[startRow][startCol+i*stepCol]==0)
+		{
+			totalVer++;
+		}
+		if(cannyPoint[endRow][startCol+i*stepCol]==0)
+		{
+			totalVer++;
+		}
+	}
+	for(int i=1;i<steps;i++)
+	{
+		if(cannyPoint[startRow+i*stepRow][startCol]==0)
+		{
+			totalVer++;
+		}
+		if(cannyPoint[startRow+i*stepRow][endCol]==0)
+		{
+			totalVer++;
+		}
+	}
+
+
+	InitMesh(pMesh, totalVer);
+	int amount=3;
+	//é€‰æ‹©ç‰¹å¾ç‚¹
 	for(int n=startCol;n<=endCol;n++)
 	{
 		for(int m=endRow;m>=startRow;m--)
@@ -1074,15 +1104,74 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 		}
 	}
 
-	cout<<"ÕûÕÅµØÍ¼¹²ÓĞ"<<nv<<"ÌØÕ÷µã"<<"±¾ÇøÓòÌáÈ¡  amount:"<<totalVer<<endl;
+	//ä¿å­˜åœ°å›¾è¾¹ç•Œç‚¹ï¼Œé‡‡æ ·10ä¸ª
+	for(int i=0;i<=steps;i++)
+	{
+		if(cannyPoint[startRow][startCol+i*stepCol]==0)
+		{
+			int m=startRow;
+			int n=startCol+i*stepCol;
+			double x=xmin+n*stdLen;
+			double y=ymax-m*stdLen;
+			double z=heightR.p[m][n];
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+			amount++;
+		}
+		if(cannyPoint[endRow][startCol+i*stepCol]==0)
+		{
+			int m=endRow;
+			int n=startCol+i*stepCol;
+			double x=xmin+n*stdLen;
+			double y=ymax-m*stdLen;
+			double z=heightR.p[m][n];
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+			amount++;
+		}
+	}
+	for(int i=1;i<steps;i++)
+	{
+		if(cannyPoint[startRow+i*stepRow][startCol]==0)
+		{
+			int m=startRow+i*stepRow;
+			int n=startCol;
+			double x=xmin+n*stdLen;
+			double y=ymax-m*stdLen;
+			double z=heightR.p[m][n];
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+			amount++;
+		}
+		if(cannyPoint[startRow+i*stepRow][endCol]==0)
+		{
+			int m=startRow+i*stepRow;
+			int n=endCol;
+			double x=xmin+n*stdLen;
+			double y=ymax-m*stdLen;
+			double z=heightR.p[m][n];
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+			((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+			amount++;
+		}
+	}
+
+	cout<<"æ•´å¼ åœ°å›¾å…±æœ‰"<<nv<<"ç‰¹å¾ç‚¹"<<"æœ¬åŒºåŸŸæ£€æµ‹åˆ°ç‚¹çš„æ•°é‡:"<<totalVer<<"æœ¬åŒºåŸŸæ’å…¥ç‚¹çš„æ•°é‡"<<amount-3<<endl;
 
 	double last_time, this_time;
 	last_time = GetTickCount();
 	IncrementalDelaunay(pMesh);
 	this_time = GetTickCount();
-	cout<<"ºÄÊ±"<<this_time - last_time<<"ms"<<endl;
+	cout<<"è€—æ—¶"<<this_time - last_time<<"ms"<<endl;
 	FILE *f = fopen(objPath.c_str(), "wt");
 	WriteOBJ(f,pMesh);
 	fclose(f);
+
+	 cvSetImageROI(cannyImg,cvRect(startCol,startRow,2*area[3],2*area[2]));  
+	 cvShowImage("imageROI",cannyImg);
 	cvWaitKey();
 }

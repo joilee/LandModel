@@ -105,5 +105,5 @@ void WriteOBJ(FILE *f, MESH_PTR pMesh)
 		fprintf(f, "f %d %d %d\n", id[0], id[1], id[2]); 
 		pTri = pTri->pNext;
 	}
-
+	UnInitMesh(pMesh);
 }

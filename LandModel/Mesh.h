@@ -1,4 +1,4 @@
-#ifndef H_MESH
+ï»¿#ifndef H_MESH
 #define H_MESH
 
 //
@@ -168,8 +168,8 @@ void Input(char* pFile, MESH_PTR pMesh)
 }
 
 // Algorithm IncrementalDelaunay(V)
-// Input: ÓÉn¸öµã×é³ÉµÄ¶şÎ¬µã¼¯V
-// Output: DelaunayÈı½ÇÆÊ·ÖDT
+// Input: ç”±nä¸ªç‚¹ç»„æˆçš„äºŒç»´ç‚¹é›†V
+// Output: Delaunayä¸‰è§’å‰–åˆ†DT
 //	1.add a appropriate triangle boudingbox to contain V ( such as: we can use triangle abc, a=(0, 3M), b=(-3M,-3M), c=(3M, 0), M=Max({|x1|,|x2|,|x3|,...} U {|y1|,|y2|,|y3|,...}))
 //	2.initialize DT(a,b,c) as triangle abc
 //	3.for i <- 1 to n 
