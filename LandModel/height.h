@@ -1,3 +1,9 @@
+/************************************************************************/
+/* 读高度数据                                                           */
+/************************************************************************/
+
+
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -129,32 +135,17 @@ void readHeight()
 		char c1,c2;
 		int st;
 		int no=0,flag=1;
-		//int ind ;
 
 		int colt = heightR[hns].col;
 		while(FileH.good()&&!FileH.eof())
 		{
 			FileH>>c1>>c2;
 			int tmp = int(c1)*256 +int(c2);
-		
-			//height.push_back(tmp);
 			heightR[hns].p[no/colt][no%colt] = tmp;
-		//	height[no/col][no%col] = tmp;
-			/*	if (flag&&tmp!=0)
-			{
-			flag=0;
-			st=tmp;
-			ind = no;
-			break;
-
-			}*/
-			//cout<<int(c1)<<" "<<int(c2)<<endl;
 			no++;
 		}
 		cout<<heightR[0].p[1][3744]<<endl;
-		//cout<<height[1][3744]<<endl;
-		//cout<<ind<<" "<<st<<endl;
-	//	cout<<height.size()<<endl;
+
 		FileH.close();
 	}
 	

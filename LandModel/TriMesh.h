@@ -8,41 +8,16 @@
 
 #include "canny.h"
 #include "readGrid.h"
-#include "vector2.h"
-#include "delaunay.h"
+
 #include "IO_obj.h"
 #include "Mesh.h"
 using namespace std;
 
 void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
-//void ToTriMeshEar()
 {
 
-	/*vector<Pot> poly;
-	vector<Pot> TriMesh;*/
 	vector<Pot>::iterator it,it1,it2,endit,t,t1,t2,ittmp;
 
-	/*poly.push_back(Pot(799706.140, 3361756.680,1));
-	poly.push_back(Pot(799706.140, 3361751.520,2));
-	poly.push_back(Pot(799710.310, 3361744.800,3));
-	poly.push_back(Pot(799710.310, 3361751.500,4));*/
-	//poly.push_back(Pot(799797.710, 3362151.270,5));
-	//poly.push_back(Pot(799812.850, 3362154.540,6));
-	//poly.push_back(Pot(799812.850, 3362158.620,7));
-	//poly.push_back(Pot(799823.670, 3362158.620,8));
-	//poly.push_back(Pot(799826.920, 3362162.020,9));
-	//poly.push_back(Pot(799826.920, 3362158.600,10));
-	//poly.push_back(Pot(799834.010, 3362158.600,11));
-	//poly.push_back(Pot(799834.010, 3362163.680,12));
-	//poly.push_back(Pot(799846.260, 3362163.680,13));
-	//poly.push_back(Pot(799893.910, 3362173.080,14));
-	//poly.push_back(Pot(799893.910, 3362179.590,15));
-	//poly.push_back(Pot(799897.740, 3362174.850,16));
-	//poly.push_back(Pot(0,0,1));
-	//poly.push_back(Pot(0,10,2));
-	//poly.push_back(Pot(3,5,3));
-	//poly.push_back(Pot(10,10,4));
-	//poly.push_back(Pot(10,0,5));
 	/**************************************************
 	______________判断每个节点的凹凸性_________________
 	**************************************************/
@@ -104,43 +79,6 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 			
 		}
 	}
-
-
-	/*if (spec0num>poly.size()-spec0num)
-	{
-		
-		
-		for (int i=0;i<poly.size();i++)
-		{
-			poly[i].spec=!poly[i].spec;
-		}
-
-		double xx,yy,zz;
-		bool ss;
-		int mm;
-		for (int i=0;i<poly.size()/2;i++)
-		{
-			xx = poly[i].x;
-			yy = poly[i].y;
-			zz = poly[i].z;
-			ss = poly[i].spec;
-			mm = poly[i].mark;
-
-			poly[i].x = poly[poly.size()-1-i].x;
-			poly[i].y = poly[poly.size()-1-i].y;
-			poly[i].z = poly[poly.size()-1-i].z;
-			poly[i].spec = poly[poly.size()-1-i].spec;
-			poly[i].mark = poly[poly.size()-1-i].mark;
-			poly[poly.size()-1-i].x = xx;
-			poly[poly.size()-1-i].y = yy;
-			poly[poly.size()-1-i].z = zz;
-			poly[poly.size()-1-i].spec = ss;
-			poly[poly.size()-1-i].mark = mm;
-
-		}
-
-	}*/
-
 	
 	int index = 0;
 	int ind1,ind2,ind3;
@@ -157,25 +95,6 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 		ind1=index;
 		ind2=(index+1)%poly.size();
 		ind3=(index+2)%poly.size();
-		
-		//double k1 = (poly[ind2].y-poly[ind1].y) /( poly[ind2].x-poly[ind1].x);
-		//double k2 = (poly[ind3].y-poly[ind1].y) / (poly[ind3].x-poly[ind1].x);
-		//double k12=k1/k2;
-		//if (k12<0)
-		//{
-		//	k12 = -k12;
-		//}
-		////cout<<k12<<endl;
-		//if( k12<1.1&&k12>0.9)
-		//{
-		//	
-		////	cout<<index<<endl;
-		//	poly.erase(poly.begin()+ind2);
-		//	cout<<poly[ind2].mark<<endl;
-		//	
-
-		//}
-		//else
 		{
 			bool flag = 0;
 			if (poly[ind2].spec==1)
@@ -212,7 +131,6 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 					poly[ind1].setSpec1();
 				}
 
-
 				x1 = (poly[ind3]).x - (poly[ind1]).x;
 				y1 = (poly[ind3]).y - (poly[ind1]).y;
 				x2 = (poly[(ind3+1)%poly.size()]).x - (poly[ind3]).x;
@@ -225,12 +143,7 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 				{
 					poly[ind3].setSpec1();
 				}
-
 				poly.erase(poly.begin()+ind2);
-
-				
-			
-				
 				
 			}
 			else
@@ -239,15 +152,8 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 			}
 
 		}
-		
-		//cout<<1;
-
-		
+			
 	}
-	/*for (int i=0;i<TriMesh.size();i++)
-	{
-		cout<<TriMesh[i].mark<<" ";
-	}*/
 
 	
 	if (poly.size()==3)
@@ -255,20 +161,10 @@ void ToTriMeshEar(vector<Pot> poly,vector<Pot> &TriMesh)
 		TriMesh.push_back(poly[0]);
 		TriMesh.push_back(poly[2]);
 		TriMesh.push_back(poly[1]);
-		
-
 	}
-	
 	poly.clear();
-	
-
-
 
 }
-
-
-
-
 
 void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 {
@@ -295,25 +191,6 @@ void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 	//poly.push_back(Pot(799893.910, 3362173.080,14));
 	//poly.push_back(Pot(799893.910, 3362179.590,15));
 	//poly.push_back(Pot(799897.740, 3362174.850,16));
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-
-	
 	/**************************************************
 	__________________插入顶点_________________________
 	**************************************************/
@@ -511,12 +388,10 @@ void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 
 
 
-
 			}
 	Step4:;
 
 		}
-
 
 		if (poly.size()==3)
 		{
@@ -541,17 +416,8 @@ void ToTriMesh(list<Pot> poly,vector<Pot> &TriMesh)
 		
 	}
 
-
-
-
 	
 }
-
-
-
-
-
-
 
 
 
@@ -632,34 +498,14 @@ void ToOBJ()
 
 				polyTri.push_back(Pot(poly[i].x,poly[i].y,cnt++,high[highValue]));
 			}
-		/*	if (num==588)
-			{
-				goto AA;
-			}*/
+
 			ToTriMeshEar(polyTri,TriMesh);
-
-			//for (int ii=0;ii<TriMesh.size();ii++)
-			//{
-			//	cout<<TriMesh[ii].mark<<" ";
-			//}
-
-			//cout<<endl;
-
-
-
-
-
 		}
 
 	}
 
-	//infile>>a>>b>>c;
-	//cout<<a;
-//	cout<<TriMesh.size()<<endl;
 
 	double zero = 0.00;
-
-	//cout<<TriMesh.size()<<" "<<Obj.size()<<" "<<Obj.size()%TriMesh.size()<<endl;
 	for(int kk=0;kk<TriMesh.size();kk++)
 	{
 		int xind = (3366156 - TriMesh[kk].y)/5;
@@ -731,10 +577,6 @@ Pot get_Normal(Pot p1,Pot p2,Pot p3)
 
 } 
 
-
-//double area[1000][1000];
-//Pot Ni[1000][1000];
-//double VecNor[1000][1000]={0.0};
 
 /************************************************************************/
 /* 根据点分布的九种情况进行处理
@@ -882,16 +724,7 @@ Pot GetNormalPoint(Pot src,vector<Pot> adjPoint )
 	}
 
 	return tmpNormal;
-	//		for(int k=0;k<8;k++)
-	//		{
-	//			double per = (disP2P(Pi,Pj[k+1])) / (disP2P(Pi,Pj[k])+disP2P(Pi,Pj[k+1])+disP2P(Pj[k],Pj[k+1]));
-	//			Pot nj = get_Normal(Pi,Pj[k+1],Pj[k]);
-	//			//cout<<nj.x<<" "<<nj.y<<" "<<nj.z<<endl;
-	//			
-	//			Ni[i][j].x+=per * nj.x;
-	//			Ni[i][j].y+=per * nj.y;
-	//			Ni[i][j].z+=per * nj.z;
-	//		}
+
 
 }
 
@@ -939,14 +772,6 @@ void GetNormalMatrix(vector<vector<double> >& normals,vector<vector<int> > &heig
 
 void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&cannyImg,vector<int>&rowNum,vector<int> &colNum,vector<double>&stdLen,vector<double> &xmin,vector<double>&ymax)
 {	 
-	//Pot tp = get_Normal(Pot(0,0,0),Pot(1,0,0),Pot(0,1,0));
-	//cout<<tp.x<<" "<<tp.y<<" "<<tp.z<<endl;	
-	//vector<GridHeight> heightR;/***height数据vector数组***/
-	//vector<int> rowNum,colNum;
-	//vector<double> stdLen;
-	//vector<double> xmin;
-	//vector<double> ymax;
-	
 
 	//入参：heightPath
 	//出参：heightR,rowNum,colNum,stdLen,xmin,ymax 高度数据 行数 列数 格与格之间的距离,左上角顶点的坐标。
@@ -969,9 +794,11 @@ void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&canny
 				cvSetReal2D(initImage,m,n,value);
 			}
 		}
+
+		#ifdef SHOWIMG
 		cvShowImage("srcImage", initImage);
-			
-		
+		#endif // DEBUG
+
 		vector<vector<double> >normalMatrix;
 		normalMatrix.resize(rowNum[i],vector<double>(colNum[i]));
 		GetNormalMatrix(normalMatrix,heightR[i].p,rowNum[i],colNum[i],stdLen[i],xmin[i], ymax[i]);
@@ -980,69 +807,30 @@ void Horizon(string filePath,vector<GridHeight> &heightR,vector<IplImage*>&canny
 		
 		//canny算法 生成特征点
 		IplImage* cannyTmp = cvCreateImage(cvGetSize(tmpTest),IPL_DEPTH_8U,1);  
-		cvCanny(tmpTest, cannyTmp, 20, 300, 3);  
+		cvCanny(tmpTest, cannyTmp, 50, 300, 3);  
+
+		#ifdef SHOWIMG
 		cvShowImage("cannyImage所有", cannyTmp);
-		
+		#endif
 		
 		cannyImg.push_back(cannyTmp);
-		
-		//分别对切分的图片 提取特征点
-		
-		//vector<Vector2<float> > points;
-		//map<pair<float,float>,int> axisToID;
-		//map<int,int> idToHeight;
-		//int id=1;
-
-		//for(int n=0;n<colNum[i];n++)
-		//{
-		//	for(int m=rowNum[i]-1;m>=0;m--)
-		//	{
-		//		if(cannyPoint[m][n]!=0)
-		//		{
-		//			float x=xmin[i]+n*stdLen[i];
-		//			float y=ymax[i]-m*stdLen[i];
-		//			pair<float,float> p1=make_pair(x,y);
-		//			axisToID.insert(make_pair(p1,id));
-		//			idToHeight.insert(make_pair(id,heightR[i].p[m][n]));
-		//			points.push_back(Vector2<float>(x,y));
-		//			id++;
-		//		}
-		//	}
-		//}
-		//cout<<"共有"<<points.size()<<"特征点"<<endl;
-
-		//Delaunay triangulation;
-		//std::vector<Triangle> triangles = triangulation.triangulate(points);
-		//std::cout << triangles.size() << " triangles generated\n";
-
-		//FILE *f = fopen("D:\\obj1.obj", "wt");
-		//writeObj(f,triangles,axisToID,idToHeight);
-		//fclose(f);
-		//cvWaitKey();
-		////cvReleaseImage(&tmpTest);
-		////cvReleaseImage(&cannyImg);
 	}
 	cout<<"提取特征点完毕"<<endl;
 }
 
-void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,int col,double xmin,double ymax,double stdLen,int area[4])
+
+
+/************************************************************************/
+/* 获得特征点数量  方案1  采用边缘插入法                                      */
+/************************************************************************/
+int getFeaturePoint(int steps,int startRow,int endRow,int startCol,int endCol,vector<vector<int> >& cannyPoint)
 {
-	vector<vector<int> > cannyPoint;
-	int nv=0;
-	cannyPoint.resize(row,vector<int>(col));
-	imageToArray(cannyPoint,cannyImg,row,col,nv);
-
-	MESH meshCTX;
-	MESH_PTR pMesh=&meshCTX;
-
-	//中心点的行 减去 行半径
-	int startRow=area[0]-area[2],endRow=area[0]+area[2],startCol=area[1]-area[3],endCol=area[1]+area[3];
-	if(startRow<0)startRow=0;
-	if(endRow>=row)endRow=row-1;
-	if(startCol<0)startCol=0;
-	if(endCol>=col)endCol=col-1;
-
 	int totalVer=0;//统计该区域的特征点数量
+	
+	int stepRow=(endRow-startRow)/steps;
+	int stepCol=(endCol-startCol)/steps;
+
+	//先计算内部点
 	for(int n=startCol;n<=endCol;n++)
 	{
 		for(int m=endRow;m>=startRow;m--)
@@ -1054,12 +842,7 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 		}
 	}
 
-
-	int steps=10;
-	int stepRow=(endRow-startRow)/steps;
-	int stepCol=(endCol-startCol)/steps;
-
-	//
+	//在计算四条边上的点
 	for(int i=0;i<=steps;i++)
 	{
 		if(cannyPoint[startRow][startCol+i*stepCol]==0)
@@ -1083,9 +866,19 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 		}
 	}
 
+	return totalVer;
+}
 
-	InitMesh(pMesh, totalVer);
+/************************************************************************/
+/* 将点保存在MESH_PTR 结构中  方案1 采用边缘点插点                      */
+/************************************************************************/
+
+int setMeshPtr(MESH_PTR pMesh,int steps,int startRow,int endRow,int startCol,int endCol,vector<vector<int> >& cannyPoint,GridHeight &heightR,double xmin,double ymax,double stdLen)
+{
 	int amount=3;
+	int stepRow=(endRow-startRow)/steps;
+	int stepCol=(endCol-startCol)/steps;
+
 	//选择特征点
 	for(int n=startCol;n<=endCol;n++)
 	{
@@ -1159,6 +952,121 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 			amount++;
 		}
 	}
+	return amount;
+}
+
+/************************************************************************/
+/* 获得特征点 方案2                                                                     */
+/************************************************************************/
+int getFeaturePoint2(int steps,int startRow,int endRow,int startCol,int endCol,vector<vector<int> >& cannyPoint)
+{
+	int totalVer=0;//统计该区域的特征点数量
+
+	int stepRow=(endRow-startRow)/steps;
+	int stepCol=(endCol-startCol)/steps;
+
+	//先计算特征点
+	for(int n=startCol;n<=endCol;n++)
+	{
+		for(int m=endRow;m>=startRow;m--)
+		{
+			if(cannyPoint[m][n]!=0)
+			{
+				totalVer++;
+			}
+		}
+	}
+	//再计算边上的点 且不能与特征点重合
+	for(int i=0;i<=steps;i++)
+	{
+		for(int j=0;j<=steps;j++)
+		{
+			int m=startRow+i*stepRow;
+			int n=startCol+j*stepCol;
+			if(cannyPoint[m][n]==0)
+			{
+				totalVer++;
+			}
+		}
+	}
+
+	return totalVer;
+
+}
+
+/************************************************************************/
+/*将点保存在MESH_PTR 结构中  方案2 采用内部插点                        */
+/************************************************************************/
+int setMeshPtr2(MESH_PTR pMesh,int steps,int startRow,int endRow,int startCol,int endCol,vector<vector<int> >& cannyPoint,GridHeight &heightR,double xmin,double ymax,double stdLen)
+{
+	int amount=3;
+	int stepRow=(endRow-startRow)/steps;
+	int stepCol=(endCol-startCol)/steps;
+
+	//选择特征点
+	for(int n=startCol;n<=endCol;n++)
+	{
+		for(int m=endRow;m>=startRow;m--)
+		{
+			if(cannyPoint[m][n]!=0)
+			{
+				double x=xmin+n*stdLen;
+				double y=ymax-m*stdLen;
+				double z=heightR.p[m][n];
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+				amount++;
+			}
+		}
+	}
+	//再计算边上的点 且不能与特征点重合
+	for(int i=0;i<=steps;i++)
+	{
+		for(int j=0;j<=steps;j++)
+		{
+			int m=startRow+i*stepRow;
+			int n=startCol+j*stepCol;
+			if(cannyPoint[m][n]==0)
+			{
+				double x=xmin+n*stdLen;
+				double y=ymax-m*stdLen;
+				double z=heightR.p[m][n];
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->x = x;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->y = y;
+				((VERTEX2D_PTR)(pMesh->pVerArr+amount))->z = z;
+				amount++;
+			}
+		}
+	}
+	return amount;
+
+}
+/************************************************************************/
+/* 根据选定的区域，生成obj文件                                          */
+/************************************************************************/
+void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,int col,double xmin,double ymax,double stdLen,int area[4])
+{
+	vector<vector<int> > cannyPoint;
+	int nv=0;
+	cannyPoint.resize(row,vector<int>(col));
+	imageToArray(cannyPoint,cannyImg,row,col,nv);
+
+	MESH meshCTX;
+	MESH_PTR pMesh=&meshCTX;
+
+	//中心点的行 减去 行半径
+	int startRow=area[0]-area[2],endRow=area[0]+area[2],startCol=area[1]-area[3],endCol=area[1]+area[3];
+	if(startRow<0)startRow=0;
+	if(endRow>=row)endRow=row-1;
+	if(startCol<0)startCol=0;
+	if(endCol>=col)endCol=col-1;
+
+	
+	int  totalVer=getFeaturePoint2(stepLength,startRow,endRow,startCol,endCol,cannyPoint);
+	InitMesh(pMesh, totalVer);
+
+	int amount=setMeshPtr2(pMesh,stepLength, startRow,endRow,startCol,endCol,cannyPoint,heightR,xmin,ymax,stdLen);
 
 	cout<<"整张地图共有"<<nv<<"特征点"<<"本区域检测到点的数量:"<<totalVer<<"本区域插入点的数量"<<amount-3<<endl;
 
@@ -1167,11 +1075,22 @@ void modelToObj(string objPath,IplImage* cannyImg,GridHeight &heightR,int row,in
 	IncrementalDelaunay(pMesh);
 	this_time = GetTickCount();
 	cout<<"耗时"<<this_time - last_time<<"ms"<<endl;
+
+	//此处添加精简三角形的功能
+
+
+
+
 	FILE *f = fopen(objPath.c_str(), "wt");
 	WriteOBJ(f,pMesh);
 	fclose(f);
 
+	
+	#ifdef SHOWIMG
 	 cvSetImageROI(cannyImg,cvRect(startCol,startRow,2*area[3],2*area[2]));  
 	 cvShowImage("imageROI",cannyImg);
-	cvWaitKey();
+	#endif
+	 
+
+	
 }

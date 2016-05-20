@@ -2,6 +2,9 @@
 //
 
 #include "stdafx.h"
+
+
+
 #include "buildingsSimplify.h"
 #include "TriMesh.h"
 
@@ -36,8 +39,9 @@ int main()
 		
 	}
 
-
+	
 	cout<<"All is OK"<<endl;
+	cvWaitKey();
 	getchar();
 	
 

@@ -15,6 +15,7 @@
 #include "stdio.h"
 #include "math.h"
 #include "stdlib.h"
+#include "defaultPara.h"
 #include "windows.h" // for time statistics
 
 // DEFINES ////////////////////////////////////////////////
@@ -50,6 +51,8 @@ typedef struct TRIANGLE_TYP
 
 	TRIANGLE_TYP* pNext;
 	TRIANGLE_TYP* pPrev;
+
+	bool changeFlag;
 
 } TRIANGLE, *TRIANGLE_PTR;
 

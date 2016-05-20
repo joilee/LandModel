@@ -47,8 +47,11 @@ IplImage * arrayToImage(vector<vector<double> >& src,int row,int col)
 		{
 			cvSetReal2D(srcImage,i,j,255-greyMatrix[i][j]);
 		}
-		
+
+		#ifdef SHOWIMG
 		cvShowImage("nornal 向量", srcImage);
+		#endif
+		
 		
      //delete_Array2D(greyMatrix, row, col);//释放内存
 

@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="头文件\delaunay1">
-      <UniqueIdentifier>{9bd75397-3531-4c01-a89a-31900d7539b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\delaunay2">
-      <UniqueIdentifier>{b9daa124-8984-4b02-b27d-441505bf5957}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,19 +48,13 @@
     <ClInclude Include="IO_obj.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="delaunay.h">
-      <Filter>头文件\delaunay1</Filter>
-    </ClInclude>
-    <ClInclude Include="vector2.h">
-      <Filter>头文件\delaunay1</Filter>
-    </ClInclude>
-    <ClInclude Include="triangle.h">
-      <Filter>头文件\delaunay1</Filter>
-    </ClInclude>
-    <ClInclude Include="edge.h">
-      <Filter>头文件\delaunay1</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TriSimplify.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="defaultPara.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,11 +65,8 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="delaunay.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="triangle.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
